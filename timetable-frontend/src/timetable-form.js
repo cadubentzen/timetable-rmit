@@ -151,20 +151,20 @@ module.exports = React.createClass({
     var courseSelects = this.state.coursesChosen.map(function(course,index) {
       return (
         <div key={index}>
-          <FormControl.Static><b><i>Course {index+1}</i></b></FormControl.Static>
+          <FormControl.Static style={{textAlign: "center"}}><b><i>Course {index+1}</i></b></FormControl.Static>
           <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} md={4}>
+            <Col componentClass={ControlLabel} md={2}>
               School
             </Col>
-            <Col md={8}>
+            <Col md={10}>
               <SelectSchool schools={self.state.schools} index={index} selectHandler={self.selectSchoolHandler}/>
             </Col>
           </FormGroup>
           <FormGroup>
-            <Col componentClass={ControlLabel} md={4}>
+            <Col componentClass={ControlLabel} md={2}>
               Course
             </Col>
-            <Col md={8}>
+            <Col md={10}>
               <SelectCourse courses={self.state.courses[index]} index={index} selectHandler={self.selectCourseHandler}/>
             </Col>
           </FormGroup>
