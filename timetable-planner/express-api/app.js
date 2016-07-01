@@ -36,11 +36,11 @@ app.get('/timetable/:school.:course', (req,res) => {
 });
 
 app.post('/timetable', (req, res) => {
-  console.log(req.body.courses);
+  //console.log(req.body.courses);
   // res.send("answer");
   rawTimetableOptions(req.body.courses, (options) => {
     timetableSolver(options, (calendars) => {
-      console.log(calendarToTimetable(calendars[0]));
+      //console.log(calendarToTimetable(calendars[0]));
       res.json({calendar: calendarToTimetable(calendars[0])});
     })
   });

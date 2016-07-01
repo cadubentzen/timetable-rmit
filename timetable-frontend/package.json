@@ -21,6 +21,7 @@
     "react-big-calendar": "^0.10.2",
     "react-bootstrap": "^0.29.5",
     "react-dom": "^15.1.0",
+    "react-select": "^1.0.0-beta13",
     "superagent": "^2.0.0"
   }
 }

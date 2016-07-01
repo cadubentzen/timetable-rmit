@@ -8,47 +8,78 @@ var Checkbox = require('react-bootstrap/lib/Checkbox');
 var Button = require('react-bootstrap/lib/Button');
 var ControlLabel = require('react-bootstrap/lib/ControlLabel');
 
+var Select = require('react-select');
+
 var request = require('superagent');
 
 var SelectSchool = React.createClass({
+  getInitialState: function() {
+    return {selectValue: ''};
+  },
   schoolHandler: function(e) {
     var self = this;
-    var schoolCode = e.target.value;
+    this.setState({selectValue: e});
+    var schoolCode = e;//.target.value;
     if(schoolCode == "-1") return;
     request
      .get("/courses/"+schoolCode)
      .end(function(err,res) {
        if(err) throw err;
-       var courses = res.body;
-       courses.unshift({code: "-1", name: "Select Course"});
+
        self.props.selectHandler(schoolCode,res.body,self.props.index);
      });
   },
   render: function() {
     var options = this.props.schools.map(function(school) {
-      return <option value={school.code} key={school.code}>{school.name}</option>;
+      return {
+        value: school.code,
+        label: school.name
+      };
+      // <option value={school.code} key={school.code}>{school.name}</option>;
     });
     return (
-      <FormControl componentClass="select" onChange={this.schoolHandler}>
-        {options}
-      </FormControl>
+      <Select
+        value={this.state.selectValue}
+        simpleValue
+        searchable={true}
+        options={options}
+        onChange={this.schoolHandler}
+      />
     );
+    // <FormControl componentClass="select" onChange={this.schoolHandler}>
+    //   {options}
+    // </FormControl>
   }
 });
 
 var SelectCourse = React.createClass({
+  getInitialState: function() {
+    return {selectValue: ''};
+  },
   courseHandler: function(e) {
-    var courseCode = e.target.value;
+    this.setState({selectValue: e});
+    var courseCode = e;//.target.value;
     this.props.selectHandler(courseCode,this.props.index);
   },
   render: function() {
     var options = this.props.courses.map(function(course) {
-      return <option value={course.code} key={course.code}>{course.name}</option>;
+      return {
+        value: course.code,
+        label: course.name
+      };
+      // return <option value={course.code} key={course.code}>{course.name}</option>;
     });
     return (
-      <FormControl componentClass="select" onChange={this.courseHandler}>
-        {options}
-      </FormControl>
+      <Select
+        value={this.state.selectValue}
+        simpleValue
+        searchable={true}
+        options={options}
+        onChange={this.courseHandler}
+      />
+      // <FormControl componentClass="select" onChange={this.courseHandler}>
+      //   {options}
+      // </FormControl>
     );
   }
 });
@@ -72,8 +103,6 @@ module.exports = React.createClass({
       .get("/schools")
       .end(function(err,res) {
         if(err) throw err;
-        var schools = res.body;
-        schools.unshift({code: "-1", name: "Select School"});
         self.setState({schools: res.body});
       });
   },
@@ -103,14 +132,12 @@ module.exports = React.createClass({
     e.preventDefault();
     var self = this;
     if(this.validateCoursesChosen()) return;
-    console.log("clicked!");
     request
      .post("/timetable")
      .send({courses: this.state.coursesChosen})
      .end(function(err, res) {
        if(err) throw err;
 
-       console.log("received!");
        self.props.calendarHandler(res.body.calendar);
      });
   },
