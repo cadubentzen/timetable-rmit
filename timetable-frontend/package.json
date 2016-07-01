@@ -1,0 +1,26 @@
+{
+  "name": "timetable-frontend",
+  "version": "1.0.0",
+  "description": "Timetable frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cadu Bentzen",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.11.1",
+    "moment": "^2.13.0",
+    "react": "^15.1.0",
+    "react-big-calendar": "^0.10.2",
+    "react-bootstrap": "^0.29.5",
+    "react-dom": "^15.1.0",
+    "superagent": "^2.0.0"
+  }
+}
